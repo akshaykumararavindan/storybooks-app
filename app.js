@@ -1,3 +1,4 @@
+const PORT = process.env.PORT || 3000
 const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
@@ -10,6 +11,10 @@ const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 
+const app = express();
+var http = require('http');
+var server = http.Server(app);
+
 //Load config
 dotenv.config({path: './config/config.env'});
 
@@ -19,7 +24,6 @@ require('./config/passport')(passport)
 //DB connection
 connectDB();
 
-const app = express()
 
 //Body parser
 app.use(express.urlencoded({extended: false}));
@@ -74,9 +78,9 @@ app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth')); 
 app.use('/stories', require('./routes/stories')); 
 
-const PORT = process.env.PORT || 3000
 
-app.listen(
+
+server.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 )
