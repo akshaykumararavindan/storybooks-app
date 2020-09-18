@@ -4,16 +4,13 @@ const passport  = require('passport');
 
 //@desc Auth with google
 //@route GET /auth/google
-router.get('/google', passport.authenticate('google', {scope:['profile', 'https://storybooks-app-ak.herokuapp.com/auth/google/callback']}));
+router.get('/google', passport.authenticate('google', {scope:['profile', 'email']}));
 
 //@desc Google auth callback
 //@route GET /auth/google/callback
 router.get('/google/callback', passport.authenticate(
     'google', {
         failureRedirect: '/'
-    }, 
-    {
-        callbackURL: 'https://storybooks-app-ak.herokuapp.com/auth/google/callback'
     }), 
     (req, res) => {
         res.redirect('/dashboard');
