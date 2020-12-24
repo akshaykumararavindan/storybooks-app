@@ -1,7 +1,7 @@
 const passport = require('passport');
 
 module.exports = {
-    ensureAuth: function (req, res, next) {
+    ensureAuth: function(req, res, next) {
         if(req.isAuthenticated()) {
             return next();
         } else {
